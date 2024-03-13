@@ -28,16 +28,21 @@ class MainActivity : ComponentActivity() {
             var radioMasculino = findViewById<RadioButton>(R.id.radioMasculino)
             var radioFeminino = findViewById<RadioButton>(R.id.radioFeminino)
             var message = ""
-            if(radioMasculino.isEnabled) {
+
+            if(radioMasculino.isChecked) {
                 var calculo = (72.7 * altura) - 58
                 message = "O seu peso ideal é $calculo"
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             }
 
-            if(radioFeminino.isEnabled) {
+            if(radioFeminino.isChecked) {
                 var calculo = (62.1 * altura) - 44.7
                 message = "O seu peso ideal é $calculo"
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            }
+
+            if(!radioMasculino.isChecked and !radioFeminino.isChecked) {
+                Toast.makeText(this, "Clique em Masculino ou Feminino!", Toast.LENGTH_SHORT).show()
             }
 
         }
