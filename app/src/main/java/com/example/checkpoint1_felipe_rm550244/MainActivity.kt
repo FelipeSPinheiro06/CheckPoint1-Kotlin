@@ -18,9 +18,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.checkpoint1_felipe_rm550244.ui.theme.CheckPoint1_Felipe_RM550244Theme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var radioMasculino = findViewById<RadioButton>(R.id.radioMasculino)
+        var radioFeminino = findViewById<RadioButton>(R.id.radioFeminino)
 
         var button = findViewById<Button>(R.id.buttonPesoIdeal)
         button.setOnClickListener {view ->
@@ -45,6 +49,14 @@ class MainActivity : ComponentActivity() {
                 Toast.makeText(this, "Clique em Masculino ou Feminino!", Toast.LENGTH_SHORT).show()
             }
 
+        }
+
+        radioMasculino.setOnClickListener {
+            radioFeminino.isChecked = false
+        }
+
+        radioFeminino.setOnClickListener {
+            radioMasculino.isChecked = false
         }
     }
 }
