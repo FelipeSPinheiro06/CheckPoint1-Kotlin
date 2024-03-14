@@ -25,38 +25,62 @@ class MainActivity : ComponentActivity() {
 
         var radioMasculino = findViewById<RadioButton>(R.id.radioMasculino)
         var radioFeminino = findViewById<RadioButton>(R.id.radioFeminino)
-
         var button = findViewById<Button>(R.id.buttonPesoIdeal)
+
+        trocarBotoes(radioMasculino, radioFeminino)
+        
         button.setOnClickListener {view ->
+            //Variáveis para condições
+            var nenhumBotaoAcionado = !radioMasculino.isChecked and !radioFeminino.isChecked
+            var masculinoAcionado = radioMasculino.isChecked
+            var femininoAcionado = radioFeminino.isChecked
+
+            //Variáveis para manipulação
             var altura = findViewById<EditText>(R.id.txtAltura).text.toString().toFloat()
-            var radioMasculino = findViewById<RadioButton>(R.id.radioMasculino)
-            var radioFeminino = findViewById<RadioButton>(R.id.radioFeminino)
             var message = ""
 
-            if(radioMasculino.isChecked) {
-                var calculo = (72.7 * altura) - 58
-                message = "O seu peso ideal é $calculo"
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-            }
 
-            if(radioFeminino.isChecked) {
-                var calculo = (62.1 * altura) - 44.7
-                message = "O seu peso ideal é $calculo"
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-            }
-
-            if(!radioMasculino.isChecked and !radioFeminino.isChecked) {
+            if(nenhumBotaoAcionado) {
                 Toast.makeText(this, "Clique em Masculino ou Feminino!", Toast.LENGTH_SHORT).show()
             }
 
+            if(masculinoAcionado) {
+                message = calcularIMC(false, altura)
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            }
+
+            if(femininoAcionado) {
+                message = calcularIMC(true, altura)
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            }
         }
 
-        radioMasculino.setOnClickListener {
-            radioFeminino.isChecked = false
-        }
 
-        radioFeminino.setOnClickListener {
-            radioMasculino.isChecked = false
-        }
+    }
+}
+fun calcularIMC(sexo: Boolean, altura: Float): String {
+
+    // sexo = false (Masculino)
+    // sexo = true  (Feminino)
+
+    if(!sexo) { //Masculino
+
+        var calculo = (72.7 * altura) - 58
+        return "O seu peso ideal é $calculo"
+
+    }
+        //Feminino
+        var calculo = (62.1 * altura) - 44.7
+        return "O seu peso ideal é $calculo"
+
+}
+
+fun trocarBotoes(radioMasculino: RadioButton, radioFeminino: RadioButton) {
+    radioMasculino.setOnClickListener {
+        radioFeminino.isChecked = false
+    }
+
+    radioFeminino.setOnClickListener {
+        radioMasculino.isChecked = false
     }
 }
